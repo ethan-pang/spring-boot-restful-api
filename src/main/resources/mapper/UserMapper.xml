@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.ethanpang.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.github.ethanpang.model.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <collection property="roles" ofType="com.github.ethanpang.model.SysRole">
+            <id column="rid" property="id"/>
+            <result column="role" jdbcType="VARCHAR" property="role"/>
+            <collection property="permissions" ofType="com.github.ethanpang.model.SysPermission">
+                <id column="pid" property="id"/>
+                <result column="permission" jdbcType="VARCHAR" property="permission"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+    <!--<resultMap id="userRolePermissionMap" type="cn.jclive.cpss.model.User">-->
+    <!--<id column="id" property="id" />-->
+    <!--<result column="username" jdbcType="VARCHAR" property="username" />-->
+    <!--<result column="password" jdbcType="VARCHAR" property="password" />-->
+    <!---->
+    <!--</resultMap>-->
+    <!---->
+
+    <select id="findUserByUsername" resultMap="BaseResultMap" >
+    SELECT
+    u.id,u.username,u.name,u.gmt_create,u.password,u.channel,u.status,u.last_login,
+    u.gmt_modified,r.role,p.permission,r.id rid,p.id pid
+    FROM user u
+		LEFT JOIN sys_user_role ur on u.id=ur.user_id
+		LEFT JOIN sys_role r on ur.role_id=r.id
+		LEFT JOIN sys_role_permission rp on rp.role_id=r.id
+		LEFT JOIN sys_permission p ON p.id=rp.permission_id
+    WHERE u.username=#{username}
+    </select>
+
+    <select id="listUser" resultMap="BaseResultMap" >
+        SELECT
+        u.id,u.username,u.name,u.gmt_create,u.password,u.channel,u.status,u.last_login,
+        u.gmt_modified,r.role,p.permission,r.id rid,p.id pid
+        FROM user u
+        LEFT JOIN sys_user_role ur on u.id=ur.user_id
+        LEFT JOIN sys_role r on ur.role_id=r.id
+        LEFT JOIN sys_role_permission rp on rp.role_id=r.id
+        LEFT JOIN sys_permission p ON p.id=rp.permission_id
+    </select>
+
+    <insert id="insert" parameterType="com.github.ethanpang.model.User" useGeneratedKeys="true" keyProperty="id" >
+        insert into user (username, name, gmt_create,
+        password, channel, status,gmt_Modified)
+        values (#{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+        #{password,jdbcType=VARCHAR},  #{description,jdbcType=VARCHAR},
+        #{state,jdbcType=TINYINT}, #{gmtModified,jdbcType=TIMESTAMP})
+    </insert>
+</mapper>

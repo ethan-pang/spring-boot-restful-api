@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.ethanpang.dao.DailyReportMapper">
+  <resultMap id="BaseResultMap" type="com.github.ethanpang.model.DailyReport">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stat_date" jdbcType="DATE" property="statDate" />
+    <result column="channel" jdbcType="BIGINT" property="channel" />
+    <result column="stats_reg" jdbcType="BIGINT" property="statsReg" />
+    <result column="stats_dau" jdbcType="BIGINT" property="statsDau" />
+    <result column="stats_pay" jdbcType="BIGINT" property="statsPay" />
+  </resultMap>
+</mapper>
