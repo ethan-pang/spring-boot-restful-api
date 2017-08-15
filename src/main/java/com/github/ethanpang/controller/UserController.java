@@ -2,7 +2,6 @@ package com.github.ethanpang.controller;
 
 import com.github.ethanpang.core.Result;
 import com.github.ethanpang.core.ResultGenerator;
-import com.github.ethanpang.model.LoginUserDTO;
 import com.github.ethanpang.model.SysRole;
 import com.github.ethanpang.model.User;
 import com.github.ethanpang.service.UserService;
@@ -95,7 +94,6 @@ public class UserController {
         for (SysRole role : user.getRoles()) {
             roles.add(role.getRole());
         }
-        LoginUserDTO loginUserDTO = new LoginUserDTO(user.getName(), roles, null);
         return ResultGenerator.genSuccessResult(user);
     }
 

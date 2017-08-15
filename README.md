@@ -2,7 +2,7 @@
 ## 简介
 本项目基于[Spring Boot API Project Seed](https://github.com/lihengming/spring-boot-api-project-seed) 项目扩展，
 添加了spring-security支撑，用于权限认证，添加了动态数据切换及redis的支撑，具体请在properties文件自行配置。
-
+以下引用Spring Boot API Project Seed的说明
 
 ## 特征&提供
 - 最佳实践的项目结构、配置文件、精简的POM（[查看项目结构图](https://github.com/lihengming/java-codes/blob/master/shared-resources/github-images/project-struct.png)）
